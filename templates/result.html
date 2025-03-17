@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diet Recommendation</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function toggleWorkoutVideos() {
+            var videoSection = document.getElementById("workout-videos");
+            if (videoSection.style.display === "none") {
+                videoSection.style.display = "block";
+            } else {
+                videoSection.style.display = "none";
+            }
+        }
+    </script>
+    <style>
+    button {
+        background: #ff7e5f;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    button:hover {
+        background: #ff4e50;
+        transform: scale(1.05);
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Recommended Diet: {{ diet }}</h2>
+        <h3>Your BMI: {{ BMI }}</h3>
+
+        <a href="{{ url_for('diet_plan', diet_type=diet.lower().replace(' ', '_')) }}">
+            <button>View {{ diet }} Plan</button>
+        </a>
+
+        <br><br>
+        <button onclick="toggleWorkoutVideos()">View Workout Videos</button>
+
+        <div id="workout-videos" style="display: none; margin-top: 20px;">
+            <h3>Workout Videos</h3>
+            <ul>
+                <button><a href="https://www.youtube.com/watch?v=1f8yoFFdkcY" target="_blank" class="button">Full Body Workout</a></button>
+                <button><a href="https://www.youtube.com/watch?v=UItWltVZZmE" target="_blank" class="button">Cardio Workout</a></button>
+                <button><a href="https://www.youtube.com/watch?v=2MoGxae-zyo" target="_blank" class="button">Strength Training</a></button>
+                <button><a href="https://www.youtube.com/watch?v=d4F8SgYewrY" target="_blank" class="button">Yoga for Beginners</a></button>
+            </ul>
+        </div>
+
+        <br><br>
+        <button><a href="/" class="button">🔙 Go Back</a></button>
+    </div>
+</body>
+</html>

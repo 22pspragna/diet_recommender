@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Workout Plan for {{ diet_type }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .video-container {
+            margin: 20px auto;
+            width: 560px;
+            height: 315px;
+        }
+
+        .back-btn, button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background: #ff7043;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .back-btn:hover, button:hover {
+            background: #ff5722;
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleWorkouts() {
+            var workoutDiv = document.getElementById("workout-options");
+            if (workoutDiv.classList.contains("hidden")) {
+                workoutDiv.classList.remove("hidden");
+            } else {
+                workoutDiv.classList.add("hidden");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Workout Plan for {{ diet_type }}</h2>
+        <p>Here is a recommended workout video for you:</p>
+
+        {% if video_link and video_link != "#" %}
+            <div class="video-container">
+                <iframe width="560" height="315" src="{{ video_link }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        {% else %}
+            <p>No workout video available for {{ diet_type }}.</p>
+        {% endif %}
+
+        <br>
+        
+        <button onclick="toggleWorkouts()">💪 More Workouts</button>
+        
+        <div id="workout-options" class="hidden">
+            <a href="{{ url_for('workout_plan', workout_type='cardio') }}"><button>Cardio</button></a>
+            <a href="{{ url_for('workout_plan', workout_type='strength') }}"><button>Strength</button></a>
+            <a href="{{ url_for('workout_plan', workout_type='flexibility') }}"><button>Flexibility</button></a>
+            <a href="{{ url_for('workout_plan', workout_type='hiit') }}"><button>HIIT</button></a>
+        </div>
+
+        <br>
+        <a href="{{ url_for('result', diet=diet_type) }}" class="back-btn">🔙 Go Back</a>
+    </div>
+</body>
+</html>
